@@ -2,7 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const ExpressError = require("./ExpressError");
 
-const cartItems = [];
+let cartItems = [];
 
 router.get("/", (req, res) => {
   res.json(cartItems);
@@ -11,6 +11,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res, next) => {
   try {
     if (!req.body) throw new ExpressError("You must add a new item", 400);
+    cartItems.push({ name: req.body.name, price: req.body.price })
     res.json({ added: { name: req.body.name, price: req.body.price } });
   } catch (e) {
     next(e);
