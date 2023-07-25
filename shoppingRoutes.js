@@ -47,12 +47,12 @@ router.delete("/:name", (req, res, next) => {
     const item = cartItems.find((item) => item.name === req.params.name);
     if (!item) throw new ExpressError("The item does not exist", 400);
 
-    cartItems.filter((cartItem) => cartItem.name === item.name);
+    cartItems.splice(item, 1)
 
-    res.json({ message: "Deleted" });
+    res.json({ message: "Deleted"});
   } catch (e) {
     next(e);
   }
 });
 
-module.exports = router;
+module.exports = router
